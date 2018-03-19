@@ -9,12 +9,12 @@ export const fetchCategories = () =>
     fetch(`${api}/categories`, { method: 'GET', headers })
       .then(res => res.json())
       .then((data) => data.categories);
-            
-      
-export const getAll = () =>
-  fetch(`${api}/contacts`, { headers })
-    .then(res => res.json())
-    .then(data => data.contacts)
+         
+// Fetch posts
+export const fetchPosts = () =>
+    fetch(`${api}/posts`, { method: 'GET', headers })
+      .then(res => res.json())
+      .then((data) => data.posts);
 
 export const remove = (contact) =>
   fetch(`${api}/contacts/${contact.id}`, { method: 'DELETE', headers })
