@@ -42,6 +42,10 @@ class SingleCommentView extends Component {
                     </div>
                     <div className='clear-both'></div>
                     <div className='comment-body'>{comment.body}</div>
+                    <div className='comment-footer'>                        
+                        <div float><a href='#'>Edit</a></div>
+                        <div><a href='#'>Delete</a></div>                        
+                    </div>
                 </div>
                 <div className='clear-both'></div>
             </div>

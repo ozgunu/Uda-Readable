@@ -111,6 +111,17 @@ ul {
   margin-right: 13px;
 }
 
+.comment-footer {
+  font-size: 9px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.comment-footer div {
+  float: left;
+  margin-right: 9px;
+}
+
 .comment-body {
   margin-top: 15px;
   font-size: 12px;

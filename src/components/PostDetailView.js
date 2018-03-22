@@ -44,6 +44,8 @@ class PostDetailView extends Component {
                 <div>                    
                     <div className='float-right'>                        
                         <Link to='/'>Main Page</Link>
+                        <Link to='/addEditPost' style={{marginLeft: '10px'}}>Add New Post</Link>
+                        <a href='#' style={{marginLeft: '10px'}}>Delete Post</a>
                         <Link to={`/addEditPost/${post.id}`} style={{marginLeft: '10px'}}>Edit Post</Link>
                     </div>
                     <div className='clear-both'></div>
