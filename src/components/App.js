@@ -3,6 +3,7 @@ import * as api from '../utils/api';
 import DefaultView from './DefaultView';
 import CategoryView from './CategoryView';
 import PostDetailView from './PostDetailView';
+import AddEditPostView from './AddEditPostView';
 import { Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
@@ -30,6 +31,16 @@ class App extends Component {
           { /* Post Detail View */ }
           <Route path="/post/:postId" render={({history, match}) => (
             <PostDetailView history={history} params={match.params}/>
+          )}/>
+
+          { /* Post Add */ }
+          <Route exact path="/addEditPost" render={({history, match}) => (
+            <AddEditPostView history={history} params={match.params}/>
+          )}/>
+
+          { /* Post Edit */ }
+          <Route path="/addEditPost/:postId" render={({history, match}) => (
+            <AddEditPostView history={history} params={match.params}/>
           )}/>
 
       </div>

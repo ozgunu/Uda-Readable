@@ -54,10 +54,10 @@ class DefaultView extends Component {
             <div>
                 <div className='main-content'>
                     {(categoryFromParams) && (
-                        <h4>Posts for Category: {categoryFromParams} </h4>
+                        <h2>Posts for Category: {categoryFromParams} </h2>
                     )}
                      {(!categoryFromParams) && (
-                        <h4>All Posts</h4>
+                        <h2>All Posts</h2>
                     )}
                     <div>
                         <div className='float-left'>Sort by

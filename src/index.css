@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 20px;
   font-family: sans-serif;
+  font-size: 11px;
   background-color: #efefef;
 }
 
@@ -53,6 +54,7 @@ ul {
 .post-title {
   font-weight: bold;
   margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .post-summary-info {
@@ -74,8 +76,6 @@ ul {
   margin-top: 15px;
   font-size: 13px;
 }
-
-
 
 .post-comment {  
   background-color: #d6d6d6;
@@ -125,6 +125,34 @@ ul {
 .comment-body {
   margin-top: 15px;
   font-size: 12px;
+}
+
+.add-edit-post {
+  width: 300px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(160, 160, 160);
+  padding: 15px;
+}
+
+.add-edit-post div {
+  margin-bottom: 8px;
+}
+
+.add-edit-post label {
+  float: left;
+  height: 14px;
+  margin-top: 5px;
+}
+
+.add-edit-post input {
+  float: right;
+  width: 220px;
+  height: 14px;
+}
+
+.add-edit-post button {
+  margin-top: 10px;
 }
 
 

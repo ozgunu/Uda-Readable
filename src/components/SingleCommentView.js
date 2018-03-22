@@ -37,13 +37,13 @@ class SingleCommentView extends Component {
                 <div className='post-comment'>
                     <div className='comment-info-bar'>
                         <div><span className='dark-red-strong'>Author: </span>{comment.author}</div>
-                        <div><span className='dark-red-strong'>Date and Time: </span>{(new Date(comment.timestamp)).toDateString()}</div>
+                        <div><span className='dark-red-strong'>Date: </span>{(new Date(comment.timestamp)).toDateString()}</div>
                         <div><span className='dark-red-strong'>Vote Score: </span>{comment.voteScore}</div>
                     </div>
                     <div className='clear-both'></div>
                     <div className='comment-body'>{comment.body}</div>
                     <div className='comment-footer'>                        
-                        <div float><a href='#'>Edit</a></div>
+                        <div><a href='#'>Edit</a></div>
                         <div><a href='#'>Delete</a></div>                        
                     </div>
                 </div>

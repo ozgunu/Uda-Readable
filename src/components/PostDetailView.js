@@ -40,7 +40,7 @@ class PostDetailView extends Component {
        
         return (
             <div className='main-content'>
-                <h4>Post Details</h4>
+                <h2>Post Details</h2>
                 <div>                    
                     <div className='float-right'>                        
                         <Link to='/'>Main Page</Link>
@@ -59,7 +59,7 @@ class PostDetailView extends Component {
                         <div><span className='dark-red-strong'>Category: </span>{post.category}</div>
                     </div>
                     <div className='post-info-bar'>
-                        <div><span className='dark-red-strong'>Date and Time: </span>{dateTime}</div>
+                        <div><span className='dark-red-strong'>Date: </span>{dateTime}</div>
                         <div><span className='dark-red-strong'>Vote Score: </span>{post.voteScore}</div>
                     </div>
                     <div className='post-body'>{post.body}</div>
