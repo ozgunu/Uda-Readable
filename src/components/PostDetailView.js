@@ -36,7 +36,7 @@ class PostDetailView extends Component {
     render() {
 
         const { post, comments } = this.state;
-        const dateTime = (new Date(post.timestamp)).toDateString();
+        const dateTime = (new Date(post.timestamp)).toLocaleString();
        
         return (
             <div className='main-content'>

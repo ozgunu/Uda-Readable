@@ -78,7 +78,7 @@ class DefaultView extends Component {
                                     <Link to={`/post/${post.id}`}><div className='post-title'>{post.title}</div></Link>
                                     <div className='post-summary-info'>
                                         <p><strong><span className='dark-red'>Category: </span></strong>{post.category}</p>
-                                        <p><strong><span className='dark-red'>Time: </span></strong>{(new Date(post.timestamp)).toDateString()}</p>
+                                        <p><strong><span className='dark-red'>Time: </span></strong>{(new Date(post.timestamp)).toLocaleString()}</p>
                                         <p><strong className='dark-red'>Vote Score: </strong>{post.voteScore}</p>
                                     </div>
                                 </div>

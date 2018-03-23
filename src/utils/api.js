@@ -33,6 +33,28 @@ export const voteComment = (commentId, action) => {
   ).then(res => res.json());
 }
 
+// Add a new post
+export const addPost = (postId, post) => {
+  // This should be made in the server, not here !!!!
+  let randomId = Math.random().toString(36).substring(7);
+  let body = JSON.stringify({ 
+    'title': post.title, 
+    'body': post.body, 
+    'author': post.author, 
+    'category': 'newCategory', 
+    'timestamp' : Date.now(), 
+    'id': randomId });
+  return fetch(`${api}/posts`, { body, method: 'POST', headers }
+  ).then(res => res.json());
+}
+
+// Update an existing post
+export const updatePost = (postId, post) => {
+  let body = JSON.stringify({ 'title': post.title, 'body': post.body });
+  return fetch(`${api}/posts/${postId}`, { body, method: 'PUT', headers }
+  ).then(res => res.json());
+}
+
 export const remove = (contact) =>
   fetch(`${api}/contacts/${contact.id}`, { method: 'DELETE', headers })
     .then(res => res.json())
