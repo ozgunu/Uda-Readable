@@ -127,6 +127,28 @@ ul {
   font-size: 12px;
 }
 
+.add-edit-comment {  
+  background-color: #d4dbea;
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  float: right;
+}
+
+.add-edit-comment input {  
+  float: right;
+  width: 90%;
+  height: 14px;
+  font-size: 10px;
+}
+
+.add-edit-comment button {
+  margin-top: 10px;
+  font-size: 11px;
+  float: right;
+}
+
 .add-edit-post {
   width: 300px;
   border-style: solid;

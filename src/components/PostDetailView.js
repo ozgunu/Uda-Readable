@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../utils/api';
 import { Link } from 'react-router-dom';
 import SingleCommentView from './SingleCommentView';
+import AddEditCommentView from './AddEditCommentView';
 
 class PostDetailView extends Component {
 
@@ -43,6 +44,11 @@ class PostDetailView extends Component {
         }
     }
 
+    showCommentInput = () => {
+        // Make the add comment box visible
+        document.getElementById('add-comment-box').setAttribute('style', 'display: block');
+    }
+
     render() {
 
         const { post, comments } = this.state;
@@ -52,11 +58,14 @@ class PostDetailView extends Component {
             <div className='main-content'>
                 <h2>Post Details</h2>
                 <div>                    
-                    <div className='float-right'>                        
+                    <div className='float-left'>                        
                         <Link to='/'>Main Page</Link>
+                    </div>
+                    <div className='float-right'>
                         <Link to='/addEditPost' style={{marginLeft: '10px'}}>Add New Post</Link>
                         <a href='#' onClick={this.deletePost} style={{marginLeft: '10px'}}>Delete Post</a>
                         <Link to={`/addEditPost/${post.id}`} style={{marginLeft: '10px'}}>Edit Post</Link>
+                        <a href='#' onClick={this.showCommentInput} style={{marginLeft: '10px'}}>Add Comment</a>
                     </div>
                     <div className='clear-both'></div>
                 </div>
@@ -73,6 +82,10 @@ class PostDetailView extends Component {
                         <div><span className='dark-red-strong'>Vote Score: </span>{post.voteScore}</div>
                     </div>
                     <div className='post-body'>{post.body}</div>
+                </div>
+
+                <div id='add-comment-box' style={{display:'none'}}>
+                    <AddEditCommentView />
                 </div>
 
                 <ul>
