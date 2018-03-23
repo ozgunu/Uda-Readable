@@ -19,23 +19,28 @@ class DefaultView extends Component {
             this.setState({categories});
         });
         api.fetchPosts().then(posts => {
-            this.setState({posts});
+            // See what is selected by default, then sort and setState
+            let select = document.getElementById('sortSelect');
+            let selectedOption = select.options[select.selectedIndex].value;
+            this.setState({posts: this.sortPosts(posts, selectedOption)});
         });
     }
 
-    // Handle sort change
-    handleSortChange = (event) => {        
-        if (event.target.value === 'timeStamp') {
-            // Sort posts by timestamp
-            this.setState((prevState) => ({
-                posts: prevState.posts.sort((postA, postB) => postB.timestamp - postA.timestamp)
-            }));
-        } else {
-            // Sort posts by voteScore
-            this.setState((prevState) => ({
-                posts: prevState.posts.sort((postA, postB) => postB.voteScore - postA.voteScore)
-            }));
+    // Sort posts by timeStamp or voteScore
+    sortPosts (posts, operation) {
+        if (operation === 'timeStamp') {
+            return posts.sort((postA, postB) => postB.timestamp - postA.timestamp);
+        } else if (operation === 'voteScore') {
+            return posts.sort((postA, postB) => postB.voteScore - postA.voteScore);
         }
+    }
+
+    // Handle sort change
+    handleSortChange = (event) => {
+        let operation = event.target.value;
+        this.setState((prevState) => ({
+            posts: this.sortPosts(prevState.posts, operation)
+        }));
     }
 
     // Render
@@ -61,7 +66,7 @@ class DefaultView extends Component {
                     )}
                     <div>
                         <div className='float-left'>Sort by
-                            <select className='select' onChange={this.handleSortChange}>
+                            <select className='select' defaultValue='timeStamp' id='sortSelect' onChange={this.handleSortChange}>
                                 <option value='timeStamp'>Time</option>
                                 <option value='voteScore'>Vote Score</option>
                             </select>

@@ -41,7 +41,7 @@ export const addPost = (postId, post) => {
     'title': post.title, 
     'body': post.body, 
     'author': post.author, 
-    'category': 'newCategory', 
+    'category': post.category, 
     'timestamp' : Date.now(), 
     'id': randomId });
   return fetch(`${api}/posts`, { body, method: 'POST', headers }
@@ -52,6 +52,12 @@ export const addPost = (postId, post) => {
 export const updatePost = (postId, post) => {
   let body = JSON.stringify({ 'title': post.title, 'body': post.body });
   return fetch(`${api}/posts/${postId}`, { body, method: 'PUT', headers }
+  ).then(res => res.json());
+}
+
+// Delete a post
+export const deletePost = (postId) => {
+  return fetch(`${api}/posts/${postId}`, { method: 'DELETE', headers }
   ).then(res => res.json());
 }
 

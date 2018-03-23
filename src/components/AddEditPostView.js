@@ -13,7 +13,7 @@ class AddEditPostView extends Component {
         }
     }
 
-    componentDidMount() {        
+    componentDidMount() {
         let postId = (this.props.params) ? this.props.params.postId : null;
         if (postId) {
             // We are editing an existing post, fetch it, then fetch categories
@@ -25,7 +25,10 @@ class AddEditPostView extends Component {
         } else {
             // We are adding a new post, just fetch categories
             api.fetchCategories().then(categories => {
-                this.setState({ categories });
+                this.setState({ 
+                    categories,
+                    post: { category: 'react' },
+                });
             });
         }
     }
@@ -40,12 +43,11 @@ class AddEditPostView extends Component {
             })
 
         // Create a new post
-        } else {
+        } else {  
             api.addPost(this.state.post.id, this.state.post).then(post => {
                 this.props.history.push(`/post/${post.id}`);
             })
         }
-
     }
 
     handleKeyPress = (event) => {
@@ -57,6 +59,17 @@ class AddEditPostView extends Component {
                 ...prevState.post,
                 [propertyName]: value
             }
+        }));
+    }
+
+    handleCategoryChange = (event) => {
+        const category = event.target.value;
+        this.setState((prevStsate) => ({
+           ...prevStsate,
+           post: {
+               ...prevStsate.post,
+               category
+           }
         }));
     }
 
@@ -85,7 +98,7 @@ class AddEditPostView extends Component {
                         <input name='author' type='text' placeholder='Author' value={post.author ? post.author : ''} onChange={this.handleKeyPress} {...statusAttribue} />
                         <div className='clear-both'></div>
                         <label>Category: </label>
-                        <select {...statusAttribue}>
+                        <select id='categorySelect' defaultValue='react' {...statusAttribue} onChange={this.handleCategoryChange}>
                             {
                                 categories.map(category => (
                                     <option key={category.name} value={category.name}>{category.name}</option>

@@ -33,6 +33,16 @@ class PostDetailView extends Component {
         }
     }
 
+    // Delete post
+    deletePost = (event) => {
+        event.preventDefault();
+        if (this.state.post.id) {
+            api.deletePost(this.state.post.id).then(post => {
+                this.props.history.push('/');
+            });
+        }
+    }
+
     render() {
 
         const { post, comments } = this.state;
@@ -45,7 +55,7 @@ class PostDetailView extends Component {
                     <div className='float-right'>                        
                         <Link to='/'>Main Page</Link>
                         <Link to='/addEditPost' style={{marginLeft: '10px'}}>Add New Post</Link>
-                        <a href='#' style={{marginLeft: '10px'}}>Delete Post</a>
+                        <a href='#' onClick={this.deletePost} style={{marginLeft: '10px'}}>Delete Post</a>
                         <Link to={`/addEditPost/${post.id}`} style={{marginLeft: '10px'}}>Edit Post</Link>
                     </div>
                     <div className='clear-both'></div>
