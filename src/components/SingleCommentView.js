@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../utils/api';
+import AddEditCommentView from './AddEditCommentView';
+import { updateComment } from '../utils/api';
 
 class SingleCommentView extends Component {
 
@@ -23,6 +25,23 @@ class SingleCommentView extends Component {
         }
     }
 
+    // Show or hide comment input box
+    toggleCommentInput = (commentId) => {
+        let commentBox = document.getElementById(`edit-comment-box-${commentId}`);
+        if (commentBox.style.display === 'none') {
+            commentBox.style.display = 'block';
+        } else {
+            commentBox.style.display = 'none';
+        }
+    }
+
+    editComment = (comment) => {
+        api.updateComment(comment).then(updatedComment => {
+            this.toggleCommentInput(comment.id);
+            this.setState({comment: updatedComment});
+        })
+    }
+
     render() {
 
         // Get the comment from the state
@@ -43,11 +62,15 @@ class SingleCommentView extends Component {
                     <div className='clear-both'></div>
                     <div className='comment-body'>{comment.body}</div>
                     <div className='comment-footer'>                        
-                        <div><a href='#'>Edit</a></div>
-                        <div><a href='#'>Delete</a></div>                        
+                        <div><a onClick={() => this.toggleCommentInput(comment.id)}>Edit</a></div>
+                        <div><a onClick={() => this.props.deleteComment(comment.id)}>Delete</a></div>
                     </div>
                 </div>
                 <div className='clear-both'></div>
+                <div id={`edit-comment-box-${comment.id}`} style={{display:'none'}}>
+                    <AddEditCommentView comment={comment} submitComment={this.editComment}/>
+                    <div className='clear-both'></div>
+                </div>
             </div>
         )
     }

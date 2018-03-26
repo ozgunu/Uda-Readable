@@ -11,6 +11,11 @@ ul {
   padding: 0;
 }
 
+a {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .select {
   margin-left: 5px;
 }
@@ -101,6 +106,19 @@ ul {
   cursor: pointer;
 }
 
+.post-footer {
+  font-size: 9px;
+  width: 100%;
+  margin-top: 20px;
+  height: 10px;
+}
+
+.post-footer div {
+  float: left;
+  margin-right: 9px;
+  margin-bottom: 10px;
+}
+
 .comment-info-bar {
   font-size: 9px;
   width: 100%;  
@@ -131,9 +149,10 @@ ul {
   background-color: #d4dbea;
   width: 60%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
   border-radius: 10px;
   float: right;
+  margin-right: 50px;
 }
 
 .add-edit-comment input {  
@@ -141,6 +160,7 @@ ul {
   width: 90%;
   height: 14px;
   font-size: 10px;
+  margin-bottom: 5px;
 }
 
 .add-edit-comment button {

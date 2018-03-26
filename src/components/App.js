@@ -14,12 +14,6 @@ class App extends Component {
     this.state = {}
   }
 
-  // Delete post -- unused now
-  deletePost = (postId) => {
-    api.deletePost(postId).then(post => {
-    })
-  }
-
   render() {
     return (
       <div>

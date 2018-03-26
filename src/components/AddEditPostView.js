@@ -34,6 +34,7 @@ class AddEditPostView extends Component {
     }
 
     handleSubmit = (event) => {
+        // Prevent default form submit event which will force re-render
         event.preventDefault();
 
         // Update an existing post
@@ -43,7 +44,7 @@ class AddEditPostView extends Component {
             })
 
         // Create a new post
-        } else {  
+        } else {
             api.addPost(this.state.post.id, this.state.post).then(post => {
                 this.props.history.push(`/post/${post.id}`);
             })

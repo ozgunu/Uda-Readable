@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../utils/api';
 import { Link } from 'react-router-dom';
+import SinglePostView from './SinglePostView';
 
 class DefaultView extends Component {
 
@@ -43,6 +44,23 @@ class DefaultView extends Component {
         }));
     }
 
+    // Increase or decrease the voteScore for a post
+    changeVote = (action, id) => {
+        if (action === 'upVote' || action === 'downVote') {
+            api.votePost(id, action).then(updatedPost => {
+                this.setState(prevState => {
+                    let posts = prevState.posts.map(post => {
+                        if (post.id === id) {
+                            post = updatedPost;
+                        }
+                        return post;
+                    });
+                    return { posts };
+                });
+            });
+        }
+    }
+
     // Render
     render() {
 
@@ -78,15 +96,8 @@ class DefaultView extends Component {
                     </div>
                     <ul>
                         {filteredPosts.map(post => (
-                            <li key={'postId-' + post.id}>
-                                <div className='post-summary'>
-                                    <Link to={`/post/${post.id}`}><div className='post-title'>{post.title}</div></Link>
-                                    <div className='post-summary-info'>
-                                        <p><strong><span className='dark-red'>Category: </span></strong>{post.category}</p>
-                                        <p><strong><span className='dark-red'>Time: </span></strong>{(new Date(post.timestamp)).toLocaleString()}</p>
-                                        <p><strong className='dark-red'>Vote Score: </strong>{post.voteScore}</p>
-                                    </div>
-                                </div>
+                            <li key={'postId-' + post.id}>                                
+                                <SinglePostView post={post} isSummary={true} changeVote={this.changeVote}/>
                             </li>
                         ))}
                     </ul>

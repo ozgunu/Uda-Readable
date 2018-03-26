@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../utils/api';
 import { Link } from 'react-router-dom';
 import SingleCommentView from './SingleCommentView';
+import SinglePostView from './SinglePostView';
 import AddEditCommentView from './AddEditCommentView';
 
 class PostDetailView extends Component {
@@ -44,16 +45,55 @@ class PostDetailView extends Component {
         }
     }
 
-    showCommentInput = () => {
-        // Make the add comment box visible
-        document.getElementById('add-comment-box').setAttribute('style', 'display: block');
+    // Show or hide comment input box
+    toggleCommentInput = () => {
+        if (document.getElementById('add-comment-box').style.display === 'none') {
+            document.getElementById('add-comment-box').style.display = 'block';
+        } else {
+            document.getElementById('add-comment-box').style.display = 'none';
+        }
+    }
+
+    // Submit a comment
+    addComment = (comment) => {
+        api.addComment(comment).then(newComment => {
+            this.toggleCommentInput();
+            this.setState(prevState => {
+                let comments = prevState.comments.slice();
+                comments.push(newComment);
+                return {
+                    comments: comments,
+                    post: {
+                        ...prevState.post,
+                        commentCount: prevState.post.commentCount + 1
+                    }
+                }
+            });
+        });
+    }
+
+    // Delete a comment
+    deleteComment = (commentId) => {
+        api.deleteComment(commentId).then(deletedComment => {
+            this.setState(prevState => ({
+                comments: prevState.comments.filter(comment => comment.id !== commentId)
+            }))
+        })
+    }
+
+    // Increase or decrease the voteScore for the post
+    changeVote = (action, id) => {
+        if (action === 'upVote' || action === 'downVote') {
+            api.votePost(id, action).then(post => {                
+                this.setState({post});
+            });
+        }
     }
 
     render() {
 
         const { post, comments } = this.state;
-        const dateTime = (new Date(post.timestamp)).toLocaleString();
-       
+               
         return (
             <div className='main-content'>
                 <h2>Post Details</h2>
@@ -63,35 +103,24 @@ class PostDetailView extends Component {
                     </div>
                     <div className='float-right'>
                         <Link to='/addEditPost' style={{marginLeft: '10px'}}>Add New Post</Link>
-                        <a href='#' onClick={this.deletePost} style={{marginLeft: '10px'}}>Delete Post</a>
+                        <a onClick={this.deletePost} style={{marginLeft: '10px'}}>Delete Post</a>
                         <Link to={`/addEditPost/${post.id}`} style={{marginLeft: '10px'}}>Edit Post</Link>
-                        <a href='#' onClick={this.showCommentInput} style={{marginLeft: '10px'}}>Add Comment</a>
+                        <a onClick={this.toggleCommentInput} style={{marginLeft: '10px'}}>Add Comment</a>
                     </div>
                     <div className='clear-both'></div>
                 </div>
                 <div className='clear-both'></div>
-                <div className='post-summary'>
-                    <div className='post-title'>{post.title}</div>
-                    <div className='post-info-bar'>
-                        <div><span className='dark-red-strong'>Author: </span>{post.author}</div>
-                        <div><span className='dark-red-strong'>Comments: </span>{post.commentCount}</div>
-                        <div><span className='dark-red-strong'>Category: </span>{post.category}</div>
-                    </div>
-                    <div className='post-info-bar'>
-                        <div><span className='dark-red-strong'>Date: </span>{dateTime}</div>
-                        <div><span className='dark-red-strong'>Vote Score: </span>{post.voteScore}</div>
-                    </div>
-                    <div className='post-body'>{post.body}</div>
-                </div>
+                <SinglePostView post={post} isSummary={false} changeVote={this.changeVote}/>
 
                 <div id='add-comment-box' style={{display:'none'}}>
-                    <AddEditCommentView />
+                    <AddEditCommentView parentId={post.id} submitComment={this.addComment}/>
+                    <div className='clear-both'></div>
                 </div>
 
                 <ul>
                     {comments.map(comment => (
                         <li key={'commentId-' + comment.id}>
-                            <SingleCommentView comment={comment} />
+                            <SingleCommentView comment={comment} deleteComment={this.deleteComment}/>
                         </li>
                     ))}
                 </ul>
